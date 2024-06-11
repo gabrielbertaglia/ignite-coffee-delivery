@@ -4,12 +4,18 @@ import { TextComponent, VariantText } from './styles'
 interface TextProps {
   variant: VariantText
   variantColor?: string
+  bold?: boolean
   children: ReactNode
 }
 
-export function Paragraph({ variant, children, variantColor }: TextProps) {
+export function Paragraph({
+  variant,
+  children,
+  bold,
+  variantColor,
+}: TextProps) {
   return (
-    <TextComponent variant={variant} variantColor={variantColor}>
+    <TextComponent variant={variant} variantColor={variantColor} bold={bold}>
       {children}
     </TextComponent>
   )
