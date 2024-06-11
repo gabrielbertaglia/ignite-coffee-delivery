@@ -1,6 +1,5 @@
 import { Paragraph } from '../../../../components/Text'
 import {
-  BtnConfirmOrder,
   Buttons,
   Coffee,
   ContainerTotal,
@@ -11,6 +10,7 @@ import {
 import cafe from '../../../../assets/coffees/americano.png'
 import { Counter } from '../../../../components/Counter'
 import { Trash } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
 
 export function InfoTotal() {
   return (
@@ -58,7 +58,11 @@ export function InfoTotal() {
             R$ 33,20
           </Paragraph>
         </TotalInfo>
-        <BtnConfirmOrder>Confirmar Pedido</BtnConfirmOrder>
+        <Link to={`/order/:${82}/success`}>
+          {/* <BtnConfirmOrder>
+            </BtnConfirmOrder> */}
+          Confirmar Pedido
+        </Link>
       </ContainerTotalInfo>
     </ContainerTotal>
   )

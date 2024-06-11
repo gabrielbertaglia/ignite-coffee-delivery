@@ -64,6 +64,22 @@ export const ContainerTotalInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  a {
+    text-decoration: none;
+    text-align: center;
+    margin-top: 12px;
+    border: 0;
+    background-color: ${(props) => props.theme.yellow};
+    color: ${(props) => props.theme.white};
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.6;
+    padding: 12px 0;
+    border-radius: 6px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
 `
 export const TotalInfo = styled.div`
   display: flex;
@@ -71,16 +87,4 @@ export const TotalInfo = styled.div`
   justify-content: space-between;
 `
 
-export const BtnConfirmOrder = styled.button`
-  margin-top: 12px;
-  border: 0;
-  background-color: ${(props) => props.theme.yellow};
-  color: ${(props) => props.theme.white};
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.6;
-  padding: 12px 0;
-  border-radius: 6px;
-  text-transform: uppercase;
-  cursor: pointer;
-`
+export const BtnConfirmOrder = styled.button``
