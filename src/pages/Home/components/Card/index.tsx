@@ -13,25 +13,37 @@ import { useTheme } from 'styled-components'
 import { Counter } from '../../../../components/Counter'
 import { Link } from 'react-router-dom'
 import { ShoppingCartSimple } from '@phosphor-icons/react'
+import { Coffee } from '../../../../@types/coffee'
 
-export function Card() {
+type CardProps = {
+  coffee: Coffee
+}
+
+export function Card({ coffee }: CardProps) {
   const theme = useTheme()
+
+  const { description, id, img, name, price, tags } = coffee
+
+  const newPrice = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+  }).format(price)
 
   return (
     <CardContainer>
-      <img src={americano} alt="" />
+      <img src={img} alt={name} />
 
-      <Tags>
-        <span>Tradicional</span>
-        <span>Tradicional</span>
+      <Tags tags={tags}>
+        {tags.map((tag) => (
+          <span key={tag.id}>{tag.name}</span>
+        ))}
       </Tags>
 
       <ContainerMiddle>
         <Title variant="s" variantColor={theme['base-subtitle']}>
-          Expresso Tradicional
+          {name}
         </Title>
         <Paragraph variant="s" variantColor={theme['base-label']}>
-          O tradicional café feito com água quente e grãos moídos
+          {description}
         </Paragraph>
       </ContainerMiddle>
 
@@ -41,7 +53,7 @@ export function Card() {
             R$
           </Paragraph>
           <Title variant="s" variantColor={theme['base-text']}>
-            9,90
+            {newPrice}
           </Title>
         </Price>
 

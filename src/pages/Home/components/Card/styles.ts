@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Tag } from '../../../../@types/coffee'
 
 export const CardContainer = styled.div`
   background-color: ${(props) => props.theme['base-card']};
@@ -15,9 +16,14 @@ export const CardContainer = styled.div`
   }
 `
 
-export const Tags = styled.div`
+interface Tags {
+  tags: Tag[]
+}
+
+export const Tags = styled.div<Tags>`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  grid-template-columns: repeat(${(props) => props.tags.length}, 1fr);
   grid-gap: 4px;
 
   span {
@@ -70,6 +76,7 @@ export const ContainerMiddle = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  gap: 8px;
 
   padding: 1rem 0 2.063rem;
 `

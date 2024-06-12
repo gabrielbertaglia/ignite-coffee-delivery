@@ -13,6 +13,7 @@ import cupImg from '../../assets/cup-coffe-delivery.png'
 
 import { useTheme } from 'styled-components'
 import { Card } from './components/Card'
+import { coffees } from '../../utils'
 
 const products = [
   {
@@ -111,20 +112,9 @@ export function Home() {
         </Title>
 
         <CoffeeContainer>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {coffees.map((coffee) => (
+            <Card key={Number(coffee.id)} coffee={coffee} />
+          ))}
         </CoffeeContainer>
       </MainContainer>
     </>

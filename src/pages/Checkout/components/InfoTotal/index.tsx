@@ -58,7 +58,7 @@ export function InfoTotal() {
             R$ 33,20
           </Paragraph>
         </TotalInfo>
-        <Link to={`/order/:${82}/success`}>
+        <Link to={`/success/order/${32}`}>
           {/* <BtnConfirmOrder>
             </BtnConfirmOrder> */}
           Confirmar Pedido
