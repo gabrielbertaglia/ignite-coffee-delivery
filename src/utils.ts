@@ -241,3 +241,11 @@ export const coffees = [
     price: 9.9,
   },
 ]
+
+export function formatCurrency(price: number) {
+  const newPrice = new Intl.NumberFormat('pt-BR', {
+    minimumFractionDigits: 2,
+  }).format(price)
+
+  return newPrice
+}

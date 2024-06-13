@@ -6,7 +6,6 @@ import {
   Price,
   Tags,
 } from './styles'
-import americano from '../../../../assets/coffees/americano.png'
 import { Title } from '../../../../components/Title'
 import { Paragraph } from '../../../../components/Text'
 import { useTheme } from 'styled-components'
@@ -15,6 +14,9 @@ import { Link } from 'react-router-dom'
 import { ShoppingCartSimple } from '@phosphor-icons/react'
 import { Coffee } from '../../../../@types/coffee'
 
+import { useContext, useState } from 'react'
+import { CartContext } from '../../../../context/CartContext'
+
 type CardProps = {
   coffee: Coffee
 }
@@ -22,11 +24,32 @@ type CardProps = {
 export function Card({ coffee }: CardProps) {
   const theme = useTheme()
 
-  const { description, id, img, name, price, tags } = coffee
+  const { description, img, name, price, tags } = coffee
+
+  const [qtd, setQtd] = useState(1)
+
+  const { addCoffeeToCart } = useContext(CartContext)
 
   const newPrice = new Intl.NumberFormat('pt-BR', {
     minimumFractionDigits: 2,
   }).format(price)
+
+  function handleAddCoffeeToCard() {
+    const coffeeToAdd = {
+      ...coffee,
+      quantity: qtd,
+    }
+    addCoffeeToCart(coffeeToAdd)
+  }
+  function handleDecrementQtd() {
+    if (qtd > 1) {
+      setQtd((state) => state - 1)
+    }
+  }
+
+  function handleIncrementQtd() {
+    setQtd((state) => state + 1)
+  }
 
   return (
     <CardContainer>
@@ -58,9 +81,13 @@ export function Card({ coffee }: CardProps) {
         </Price>
 
         <AsideBottom>
-          <Counter />
+          <Counter
+            qtd={qtd}
+            onDecrement={handleDecrementQtd}
+            onIncrement={handleIncrementQtd}
+          />
 
-          <Link to={'/'}>
+          <Link to={'/'} onClick={handleAddCoffeeToCard}>
             <ShoppingCartSimple size={22} weight="fill" />
           </Link>
         </AsideBottom>

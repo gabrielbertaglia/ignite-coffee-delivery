@@ -4,50 +4,94 @@ import {
   Coffee,
   ContainerTotal,
   ContainerTotalInfo,
+  Separator,
   TotalInfo,
 } from './styles'
 
-import cafe from '../../../../assets/coffees/americano.png'
 import { Counter } from '../../../../components/Counter'
 import { Trash } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
+import { useContext } from 'react'
+import { CartContext } from '../../../../context/CartContext'
+import { formatCurrency } from '../../../../utils'
+
+const DELIVERY_PRICE = 5.5
 
 export function InfoTotal() {
+  const {
+    cartItems,
+    coffeeQtd,
+    removeCoffeeFromCart,
+    cartItemsTotal,
+    coffeeQuantity,
+  } = useContext(CartContext)
+
+  const cartTotal = DELIVERY_PRICE + cartItemsTotal
+
+  const totalItems = formatCurrency(cartItemsTotal)
+
+  const totalCart = formatCurrency(cartTotal)
+
+  const deliveryPrice = formatCurrency(DELIVERY_PRICE)
+
   return (
     <ContainerTotal>
-      {[1, 2].map((_) => (
-        <>
-          <Coffee>
-            <div>
-              <img src={cafe} alt="" />
-              <div>
-                <Paragraph variant="m">Expresso Tradicional</Paragraph>
+      {cartItems.map((coffee) => {
+        const totalCoffee = coffee.price * coffee.quantity
+        const priceFormatted = formatCurrency(totalCoffee)
 
-                <Buttons>
-                  <Counter />
-                  <button>
-                    <Trash weight="regular" />
-                    <span>Remover</span>
-                  </button>
-                </Buttons>
+        function handleIncrement() {
+          coffeeQtd(coffee.id, 'increment')
+        }
+
+        function handleDecrement() {
+          if (coffee.quantity > 1) {
+            coffeeQtd(coffee.id, 'decrement')
+          }
+        }
+
+        function handleRemoveCoffeeFromCart() {
+          removeCoffeeFromCart(coffee.id)
+        }
+
+        return (
+          <>
+            <Coffee>
+              <div>
+                <img src={coffee.img} alt="" />
+                <div>
+                  <Paragraph variant="m">{coffee.name}</Paragraph>
+
+                  <Buttons>
+                    <Counter
+                      qtd={coffee.quantity}
+                      onDecrement={handleDecrement}
+                      onIncrement={handleIncrement}
+                    />
+                    <button onClick={handleRemoveCoffeeFromCart}>
+                      <Trash weight="regular" />
+                      <span>Remover</span>
+                    </button>
+                  </Buttons>
+                </div>
               </div>
-            </div>
-            <Paragraph variant="m" bold>
-              R$ 9,90
-            </Paragraph>
-          </Coffee>
-          <span />
-        </>
-      ))}
+              <Paragraph variant="m" bold>
+                R$ {priceFormatted}
+              </Paragraph>
+            </Coffee>
+            <Separator />
+          </>
+        )
+      })}
       <ContainerTotalInfo>
         <TotalInfo>
           <Paragraph variant="s">Total de itens</Paragraph>
-          <Paragraph variant="m">R$ 29,70</Paragraph>
+          <Paragraph variant="m">R$ {totalItems}</Paragraph>
         </TotalInfo>
 
         <TotalInfo>
           <Paragraph variant="s">Entrega</Paragraph>
-          <Paragraph variant="m">R$ 3,50</Paragraph>
+          <Paragraph variant="m">R$ {deliveryPrice}</Paragraph>
         </TotalInfo>
 
         <TotalInfo>
@@ -55,12 +99,16 @@ export function InfoTotal() {
             Total
           </Paragraph>
           <Paragraph variant="l" bold>
-            R$ 33,20
+            R$ {totalCart}
           </Paragraph>
         </TotalInfo>
-        <Link to={`/success/order/${32}`}>
-          {/* <BtnConfirmOrder>
-            </BtnConfirmOrder> */}
+        <Link
+          to={`/success/order/${32}`}
+          style={{
+            pointerEvents: coffeeQuantity > 0 ? 'auto' : 'none',
+          }}
+          className={coffeeQuantity <= 0 ? 'disabled' : ''}
+        >
           Confirmar Pedido
         </Link>
       </ContainerTotalInfo>

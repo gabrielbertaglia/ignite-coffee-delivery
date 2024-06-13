@@ -6,14 +6,14 @@ export const ContainerTotal = styled.div`
   border-radius: 6px 44px;
 
   padding: 2.5rem;
+`
 
-  > span {
-    display: block;
-    width: 100%;
-    height: 1px;
-    background-color: ${(props) => props.theme['base-button']};
-    margin: 24px 0;
-  }
+export const Separator = styled.span`
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: ${(props) => props.theme['base-button']};
+  margin: 24px 0;
 `
 
 export const Coffee = styled.div`
@@ -64,7 +64,6 @@ export const ContainerTotalInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   a {
     text-decoration: none;
     text-align: center;
@@ -79,6 +78,13 @@ export const ContainerTotalInfo = styled.div`
     border-radius: 6px;
     text-transform: uppercase;
     cursor: pointer;
+
+    &:hover {
+      background-color: ${(props) => props.theme['yellow-dark']};
+    }
+  }
+  .disabled {
+    opacity: 0.4;
   }
 `
 export const TotalInfo = styled.div`
@@ -86,5 +92,3 @@ export const TotalInfo = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `
-
-export const BtnConfirmOrder = styled.button``

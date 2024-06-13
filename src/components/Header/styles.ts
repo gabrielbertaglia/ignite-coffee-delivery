@@ -17,6 +17,7 @@ export const Aside = styled.aside`
     /* text-decoration: none; */
     display: flex;
     align-items: center;
+    position: relative;
     padding: 0.5rem;
     /* width: 38px;
     height: 38px; */
@@ -28,6 +29,21 @@ export const Aside = styled.aside`
     svg {
       /* margin: 0.5rem; */
       color: ${(props) => props.theme['yellow-dark']};
+    }
+
+    > span {
+      background-color: ${(props) => props.theme['yellow-dark']};
+      padding: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
     }
   }
 `
