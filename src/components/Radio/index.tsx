@@ -1,10 +1,25 @@
-import { Container, RadioProps } from './styled'
+import { forwardRef, InputHTMLAttributes } from 'react'
+import { ContentContainer, PaymentMethodContainer } from './styled'
 
-export function Radio({ children, isSelected, ...props }: RadioProps) {
-  return (
-    <Container isSelected={isSelected}>
-      <input type="radio" {...props} />
-      {children}
-    </Container>
-  )
+type PaymentMethodInputProps = InputHTMLAttributes<HTMLInputElement> & {
+  icon: JSX.Element
+  label: string
 }
+
+// eslint-disable-next-line react/display-name
+export const PaymentMethodInput = forwardRef<
+  HTMLInputElement,
+  PaymentMethodInputProps
+>(({ id, icon, label, ...props }, ref) => {
+  return (
+    <PaymentMethodContainer>
+      <input id={id} type="radio" {...props} name="paymentMethod" ref={ref} />
+      <label htmlFor={id}>
+        <ContentContainer>
+          {icon}
+          {label}
+        </ContentContainer>
+      </label>
+    </PaymentMethodContainer>
+  )
+})

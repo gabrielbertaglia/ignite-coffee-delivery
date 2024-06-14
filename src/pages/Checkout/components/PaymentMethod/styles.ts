@@ -8,7 +8,13 @@ export const ContainerPaymentMethod = styled(BaseCardCheckout)`
 
 export const ContainerRadio = styled.div`
   display: flex;
+  flex-direction: column;
   gap: 12px;
+
+  > div {
+    display: flex;
+    gap: 12px;
+  }
 `
 export const PaymentHeader = styled.div`
   display: flex;

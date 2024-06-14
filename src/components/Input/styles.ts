@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Box = styled.div`
   display: flex;
@@ -24,16 +24,22 @@ export const InputForm = styled.input`
   }
 `
 
-export const Container = styled.label`
+interface ContainerProps {
+  hasError: boolean
+}
+
+export const Container = styled.label<ContainerProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 
   border: 1px solid ${(props) => props.theme['base-button']};
   border-radius: 6px;
 
   :focus {
     border: 1px solid ${(props) => props.theme['yellow-dark']};
+    border-radius: 6px;
   }
 
   span {
@@ -45,4 +51,18 @@ export const Container = styled.label`
     color: ${(props) => props.theme['base-label']};
     font-size: 12px;
   }
+
+  ${(props) =>
+    props.hasError &&
+    css`
+      border: 1px solid ${(props) => props.theme['base-error']};
+      :focus {
+        border: 1px solid ${(props) => props.theme['base-error']};
+        border-radius: 6px;
+      }
+    `}
+`
+export const ErrorMessage = styled.p`
+  font-weight: 400;
+  color: red;
 `

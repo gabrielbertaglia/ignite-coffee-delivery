@@ -1,4 +1,4 @@
-import { CurrencyDollar, MapPin, Timer } from '@phosphor-icons/react'
+import { Bank, CreditCard, MapPin, Money, Timer } from '@phosphor-icons/react'
 import { Paragraph } from '../../components/Text'
 import { Title } from '../../components/Title'
 import {
@@ -12,9 +12,61 @@ import {
 
 import motorcycle from '../../assets/motorcycle.svg'
 import { useTheme } from 'styled-components'
+import { Path, useLocation, useNavigate } from 'react-router-dom'
+import { OrderType } from '../Checkout'
+import { useEffect } from 'react'
+
+interface PaymentMethodsProps {
+  credit: {
+    label: string
+    icon: JSX.Element
+  }
+  debit: {
+    label: string
+    icon: JSX.Element
+  }
+  cash: {
+    label: string
+    icon: JSX.Element
+  }
+}
+
+export const paymentMethods: PaymentMethodsProps = {
+  credit: {
+    label: 'Cartão de Crédito',
+    icon: <CreditCard />,
+  },
+  debit: {
+    label: 'Cartão de Débito',
+    icon: <Bank />,
+  },
+  cash: {
+    label: 'Dinheiro',
+    icon: <Money />,
+  },
+}
+
+export interface LocationType extends Path {
+  state: OrderType
+}
 
 export function Success() {
   const theme = useTheme()
+  const { state } = useLocation() as LocationType
+
+  const navigate = useNavigate()
+
+  console.log('state aaaaaaaaaaa', state)
+
+  useEffect(() => {
+    if (!state) {
+      navigate('/')
+    }
+  }, [state, navigate])
+
+  console.log(state)
+
+  if (!state) return <></>
 
   return (
     <CardSuccess>
@@ -41,11 +93,13 @@ export function Success() {
                 <span>
                   <Paragraph variant="m"> Entrega em&nbsp;</Paragraph>
                   <Paragraph variant="m" bold>
-                    Rua João Daniel Martinelli, 102
+                    {state.address}, {state.number}
                   </Paragraph>
                 </span>
                 <span>
-                  <Paragraph variant="m">Farrapos - Porto Alegre, RS</Paragraph>
+                  <Paragraph variant="m">
+                    {state.neighborhood} - {state.city}, {state.state}
+                  </Paragraph>
                 </span>
               </div>
             </div>
@@ -76,7 +130,7 @@ export function Success() {
                   backgroundColor: theme['yellow-dark'],
                 }}
               >
-                <CurrencyDollar />
+                {paymentMethods[state.paymentMethod].icon}
               </IconButton>
               <div>
                 <span>
@@ -84,7 +138,7 @@ export function Success() {
                 </span>
                 <span>
                   <Paragraph variant="m" bold>
-                    Cartão de Crédito
+                    {paymentMethods[state.paymentMethod].label}
                   </Paragraph>
                 </span>
               </div>

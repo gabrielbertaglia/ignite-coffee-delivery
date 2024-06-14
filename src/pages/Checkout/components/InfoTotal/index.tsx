@@ -1,5 +1,6 @@
 import { Paragraph } from '../../../../components/Text'
 import {
+  ButtonContainer,
   Buttons,
   Coffee,
   ContainerTotal,
@@ -10,7 +11,6 @@ import {
 
 import { Counter } from '../../../../components/Counter'
 import { Trash } from '@phosphor-icons/react'
-import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../../../../context/CartContext'
 import { formatCurrency } from '../../../../utils'
@@ -102,15 +102,14 @@ export function InfoTotal() {
             R$ {totalCart}
           </Paragraph>
         </TotalInfo>
-        <Link
-          to={`/success/order/${32}`}
-          style={{
-            pointerEvents: coffeeQuantity > 0 ? 'auto' : 'none',
-          }}
-          className={coffeeQuantity <= 0 ? 'disabled' : ''}
+        {/* <a href="">Confirmar Pedido</a> */}
+        <ButtonContainer
+          type="submit"
+          form="order"
+          disabled={coffeeQuantity <= 0}
         >
           Confirmar Pedido
-        </Link>
+        </ButtonContainer>
       </ContainerTotalInfo>
     </ContainerTotal>
   )

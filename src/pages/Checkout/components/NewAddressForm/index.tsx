@@ -1,52 +1,57 @@
 import { useFormContext } from 'react-hook-form'
 import { AddressForm } from './styles'
 import { Input } from '../../../../components/Input'
+import { OrderType } from '../..'
 
 export function NewAddressForm() {
-  const { register } = useFormContext()
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<OrderType>()
+
   return (
     <AddressForm>
-      {/* <Cep> */}
-
       <Input
         placeholder="CEP"
-        {...register('cep')}
         containerProps={{ style: { gridArea: 'cep' } }}
+        error={errors.cep}
+        {...register('cep')}
+        maxLength={8}
       />
-      {/* </Cep> */}
-      {/* <Address> */}
       <Input
         placeholder="Address"
         {...register('address')}
         containerProps={{ style: { gridArea: 'address' } }}
+        error={errors.address}
       />
-      {/* </Address> */}
-      {/* <NumberComplement> */}
       <Input
         placeholder="Number"
         {...register('number')}
         containerProps={{ style: { gridArea: 'number' } }}
+        error={errors.number}
       />
       <Input
         placeholder="Complement"
         {...register('complement')}
         containerProps={{ style: { gridArea: 'complement' } }}
       />
-      {/* </NumberComplement> */}
       <Input
         placeholder="Neighborhood"
         {...register('neighborhood')}
         containerProps={{ style: { gridArea: 'neighborhood' } }}
+        error={errors.neighborhood}
       />
       <Input
         placeholder="City"
         {...register('city')}
         containerProps={{ style: { gridArea: 'city' } }}
+        error={errors.city}
       />
       <Input
         placeholder="UF"
         {...register('state')}
         containerProps={{ style: { gridArea: 'state' } }}
+        error={errors.state}
       />
     </AddressForm>
   )

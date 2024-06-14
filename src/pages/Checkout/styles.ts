@@ -11,6 +11,10 @@ export const MainContainer = styled.main`
   display: flex;
   padding: 40px 0;
   gap: 32px;
+
+  > form {
+    flex: 1;
+  }
 `
 
 export const Container = styled.div`
@@ -24,4 +28,13 @@ export const LeftSide = styled.div`
   flex-direction: column;
   gap: 12px;
   padding-top: 15px;
+`
+
+export const ContainerForm = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  gap: 32px;
+
+  /* width: 100%; */
 `
