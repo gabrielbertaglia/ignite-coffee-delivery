@@ -7,7 +7,6 @@ import { InfoTotal } from './components/InfoTotal'
 import * as zod from 'zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
 
@@ -38,8 +37,7 @@ type ConfirmOrderFormData = OrderType
 
 export function Checkout() {
   const theme = useTheme()
-  const navigate = useNavigate()
-  const { cleanCart } = useContext(CartContext)
+  const { checkoutOrder } = useContext(CartContext)
 
   const newAddressForm = useForm<ConfirmOrderFormData>({
     resolver: zodResolver(newAddressFormValidation),
@@ -51,11 +49,10 @@ export function Checkout() {
   } = newAddressForm
 
   function handleConfirmOrder(data: ConfirmOrderFormData) {
-    console.log(data)
-    navigate(`/order/${32}/success`, {
-      state: data,
-    })
-    cleanCart()
+    // navigate(`/order/${orders.}/success`, {
+    //   state: data,
+    // })
+    checkoutOrder(data)
   }
 
   console.log('error', errors)

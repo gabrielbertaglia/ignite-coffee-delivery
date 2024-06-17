@@ -1,7 +1,7 @@
 import { Container, Aside, Location } from './styles'
 import LogoCoffee from '../../assets/coffee-delivery-logo.svg'
 import { MapPin, ShoppingCartSimple } from '@phosphor-icons/react'
-import { Link, matchPath, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { CartContext } from '../../context/CartContext'
 import { Paragraph } from '../Text'
@@ -11,22 +11,11 @@ import { LocationType } from '../../pages/Success'
 export function Header() {
   const theme = useTheme()
   const { coffeeQuantity } = useContext(CartContext)
-  const { state, pathname } = useLocation() as LocationType
-  const navigate = useNavigate()
-
-  console.log('state0', state)
-
-  function handleCleanState() {
-    const isOnOrderRoute = matchPath({ path: '/order/*' }, pathname)
-    console.log('isOnOrderRoute', isOnOrderRoute !== null)
-    if (isOnOrderRoute !== null) {
-      navigate(pathname, { replace: true, state: null })
-    }
-  }
+  const { state } = useLocation() as LocationType
 
   return (
     <Container>
-      <Link to={'/'} onClick={handleCleanState}>
+      <Link to={'/'}>
         <img src={LogoCoffee} alt="" />
       </Link>
 

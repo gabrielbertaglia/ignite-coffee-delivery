@@ -15,19 +15,8 @@ import { useTheme } from 'styled-components'
 import { Card } from './components/Card'
 import { coffees } from '../../utils'
 
-const products = [
-  {
-    image: '',
-    tags: ['Tradicional'],
-    title: 'Expresso Tradicional',
-    subtitle: 'O tradicional café feito com água quente e grãos moídos',
-    price: 9.9,
-  },
-]
-
 export function Home() {
   const theme = useTheme()
-  console.log(products)
 
   return (
     <>

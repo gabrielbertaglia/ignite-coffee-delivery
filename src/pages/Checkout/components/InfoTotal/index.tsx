@@ -19,7 +19,7 @@ const DELIVERY_PRICE = 5.5
 
 export function InfoTotal() {
   const {
-    cartItems,
+    cart,
     coffeeQtd,
     removeCoffeeFromCart,
     cartItemsTotal,
@@ -36,7 +36,7 @@ export function InfoTotal() {
 
   return (
     <ContainerTotal>
-      {cartItems.map((coffee) => {
+      {cart.map((coffee) => {
         const totalCoffee = coffee.price * coffee.quantity
         const priceFormatted = formatCurrency(totalCoffee)
 

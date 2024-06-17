@@ -12,9 +12,10 @@ import {
 
 import motorcycle from '../../assets/motorcycle.svg'
 import { useTheme } from 'styled-components'
-import { Path, useLocation, useNavigate } from 'react-router-dom'
+import { Path, useNavigate, useParams } from 'react-router-dom'
 import { OrderType } from '../Checkout'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { CartContext } from '../../context/CartContext'
 
 interface PaymentMethodsProps {
   credit: {
@@ -52,21 +53,21 @@ export interface LocationType extends Path {
 
 export function Success() {
   const theme = useTheme()
-  const { state } = useLocation() as LocationType
-
+  const { orders } = useContext(CartContext)
   const navigate = useNavigate()
 
-  console.log('state aaaaaaaaaaa', state)
+  const { id } = useParams()
+  const orderInfo = orders.find((order) => order.id === id)
 
   useEffect(() => {
-    if (!state) {
+    if (!orderInfo?.id) {
       navigate('/')
     }
-  }, [state, navigate])
+  }, [navigate, orderInfo?.id])
 
-  console.log(state)
-
-  if (!state) return <></>
+  if (!orderInfo?.id) {
+    return <></>
+  }
 
   return (
     <CardSuccess>
@@ -93,12 +94,13 @@ export function Success() {
                 <span>
                   <Paragraph variant="m"> Entrega em&nbsp;</Paragraph>
                   <Paragraph variant="m" bold>
-                    {state.address}, {state.number}
+                    {orderInfo.address}, {orderInfo.number}
                   </Paragraph>
                 </span>
                 <span>
                   <Paragraph variant="m">
-                    {state.neighborhood} - {state.city}, {state.state}
+                    {orderInfo.neighborhood} - {orderInfo.city},{' '}
+                    {orderInfo?.state}
                   </Paragraph>
                 </span>
               </div>
@@ -130,7 +132,7 @@ export function Success() {
                   backgroundColor: theme['yellow-dark'],
                 }}
               >
-                {paymentMethods[state.paymentMethod].icon}
+                {paymentMethods[orderInfo.paymentMethod].icon}
               </IconButton>
               <div>
                 <span>
@@ -138,7 +140,7 @@ export function Success() {
                 </span>
                 <span>
                   <Paragraph variant="m" bold>
-                    {paymentMethods[state.paymentMethod].label}
+                    {paymentMethods[orderInfo.paymentMethod].label}
                   </Paragraph>
                 </span>
               </div>
